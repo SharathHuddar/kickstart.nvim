@@ -663,7 +663,10 @@ require('lazy').setup(
         --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
         --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
         local capabilities = require('blink.cmp').get_lsp_capabilities()
-
+        capabilities.textDocument.foldingRange = {
+          dynamicRegistration = false,
+          lineFoldingOnly = true,
+        }
         -- Enable the following language servers
         --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
         --
@@ -1035,6 +1038,28 @@ require('lazy').setup(
         'nvim-treesitter/nvim-treesitter',
       },
     },
+    {
+      'kevinhwang91/nvim-ufo',
+      dependencies = {
+        'kevinhwang91/promise-async',
+      },
+      -- requires = 'kevinhwang91/promise-async',
+      config = function()
+        -- upstream: https://github.com/kevinhwang91/nvim-ufo?tab=readme-ov-file#minimal-configuration
+        vim.o.foldcolumn = '1' -- '0' is not bad
+        vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+        vim.o.foldlevelstart = 99
+        vim.o.foldenable = true
+
+        require('ufo').setup {
+          provider_selector = function(bufnr, filetype, buftype)
+            -- Prefer LSP, fallback to Treesitter, then indent
+            return { 'lsp', 'treesitter' }
+          end,
+        }
+      end,
+    },
+
     -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
     -- init.lua. If you want these files, they are in the repository, so you can just download them and
     -- place them in the correct locations.
