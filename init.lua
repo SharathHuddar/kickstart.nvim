@@ -682,6 +682,19 @@ require('lazy').setup(
             settings = {},
           },
           biome = {},
+          tsgo = {
+            -- on_attach = function(client, bufnr)
+            --   -- Disable functionality handled by biome
+            --   client.server_capabilities.documentFormattingProvider = false
+            --   client.server_capabilities.documentRangeFormattingProvider = false
+            --   if client.server_capabilities.codeActionProvider then
+            --     local code_actions = client.server_capabilities.codeActionProvider
+            --     if type(code_actions) == 'table' then
+            --       code_actions.resolveProvider = false
+            --     end
+            --   end
+            -- end,
+          },
           -- ts_ls = {
           --   on_attach = function(client, bufnr)
           --     -- Disable functionality handled by biome
@@ -1054,6 +1067,10 @@ require('lazy').setup(
 
         require('ufo').setup {
           provider_selector = function(bufnr, filetype, buftype)
+            -- Exclude non-file buffers (hover, telescope, etc.)
+            if buftype ~= '' then
+              return nil
+            end
             -- Allow tresitter usage only if parser is present for the buffer's filetype
             -- Else, treesitter will throw an exception when ufo tries to create folds
             -- for buffers of gitsigns, telescope etc which don't have a filetype
