@@ -1018,6 +1018,7 @@ require('lazy').setup(
           'rust',
           'json',
           'jsonc',
+          'graphql',
         },
         -- Autoinstall languages that are not installed
         auto_install = true,
@@ -1053,8 +1054,13 @@ require('lazy').setup(
 
         require('ufo').setup {
           provider_selector = function(bufnr, filetype, buftype)
-            -- Prefer LSP, fallback to Treesitter, then indent
-            return { 'lsp', 'treesitter' }
+            -- Allow tresitter usage only if parser is present for the buffer's filetype
+            -- Else, treesitter will throw an exception when ufo tries to create folds
+            -- for buffers of gitsigns, telescope etc which don't have a filetype
+            if require('nvim-treesitter.parsers').has_parser(filetype) then
+              return { 'lsp', 'treesitter' }
+            end
+            return { 'lsp' }
           end,
         }
       end,
