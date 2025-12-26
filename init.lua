@@ -1057,7 +1057,16 @@ require('lazy').setup(
             -- Allow tresitter usage only if parser is present for the buffer's filetype
             -- Else, treesitter will throw an exception when ufo tries to create folds
             -- for buffers of gitsigns, telescope etc which don't have a filetype
-            if require('nvim-treesitter.parsers').has_parser(filetype) then
+            local ts_parsers = require 'nvim-treesitter.parsers'
+            local ts_query = require 'vim.treesitter.query'
+            local has_ts_folds = false
+            if ts_parsers.has_parser(filetype) then
+              local ok, query = pcall(ts_query.get, filetype, 'folds')
+              has_ts_folds = ok and query ~= nil
+            end
+            -- Some parsers don't have folds implemented (ex: grapbhql)
+            -- in such cases we don't want to use treesitter
+            if has_ts_folds then
               return { 'lsp', 'treesitter' }
             end
             return { 'lsp' }
