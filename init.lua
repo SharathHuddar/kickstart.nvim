@@ -682,32 +682,7 @@ require('lazy').setup(
             settings = {},
           },
           biome = {},
-          tsgo = {
-            -- on_attach = function(client, bufnr)
-            --   -- Disable functionality handled by biome
-            --   client.server_capabilities.documentFormattingProvider = false
-            --   client.server_capabilities.documentRangeFormattingProvider = false
-            --   if client.server_capabilities.codeActionProvider then
-            --     local code_actions = client.server_capabilities.codeActionProvider
-            --     if type(code_actions) == 'table' then
-            --       code_actions.resolveProvider = false
-            --     end
-            --   end
-            -- end,
-          },
-          -- ts_ls = {
-          --   on_attach = function(client, bufnr)
-          --     -- Disable functionality handled by biome
-          --     client.server_capabilities.documentFormattingProvider = false
-          --     client.server_capabilities.documentRangeFormattingProvider = false
-          --     if client.server_capabilities.codeActionProvider then
-          --       local code_actions = client.server_capabilities.codeActionProvider
-          --       if type(code_actions) == 'table' then
-          --         code_actions.resolveProvider = false
-          --       end
-          --     end
-          --   end,
-          -- },
+          tsgo = {},
           -- pyright = {},
           rust_analyzer = {},
           -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
