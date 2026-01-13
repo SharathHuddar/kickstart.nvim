@@ -195,38 +195,6 @@ require('lazy').setup(
         { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
       },
     },
-    -- upstream: https://github.com/ray-x/go.nvim?tab=readme-ov-file#lazynvim
-    {
-      'ray-x/go.nvim',
-      dependencies = {
-        'ray-x/guihua.lua',
-        'neovim/nvim-lspconfig',
-        'nvim-treesitter/nvim-treesitter',
-      },
-      opts = {
-        lsp_cfg = true,
-        golangci_lint = {
-          enable = {
-            'prealloc',
-          },
-        },
-      },
-      config = function(lp, opts)
-        require('go').setup(opts)
-        local format_sync_grp = vim.api.nvim_create_augroup('GoFormat', {})
-        vim.api.nvim_create_autocmd('BufWritePre', {
-          pattern = '*.go',
-          callback = function()
-            require('go.format').goimports()
-          end,
-          group = format_sync_grp,
-        })
-      end,
-      event = { 'CmdLineEnter' },
-      ft = { 'go', 'gomod' },
-      build = ':lua require("go.install").update_all_sync()',
-    },
-
     -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
     --
     -- This is often very useful to both group configuration, as well as handle
@@ -1044,8 +1012,7 @@ require('lazy').setup(
     --  Here are some example plugins that I've included in the Kickstart repository.
     --  Uncomment any of the lines below to enable them (you will need to restart nvim).
     --
-    -- require 'kickstart.plugins.debug',
-    require 'kickstart.plugins.indent_line',
+    require 'kickstart.plugins.debug',
     -- require 'kickstart.plugins.lint',
     require 'kickstart.plugins.autopairs',
     -- require 'kickstart.plugins.neo-tree',
