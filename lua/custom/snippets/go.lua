@@ -27,7 +27,7 @@ return {
   -- 	errorHandler.CustomError(w, "", "")
   -- 	return
   -- 	}
-  s('errswitch', {
+  s('swerr', {
     t 'switch {',
 
     -- case: sql.ErrNoRows
