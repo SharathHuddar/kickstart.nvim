@@ -149,6 +149,14 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
+local function kill_port(port)
+  vim.fn.system(string.format('kill -9 $(lsof -t -i:%d)', port))
+end
+
+vim.keymap.set('n', '<leader>ks', function()
+  kill_port(3333)
+end, { desc = '[k]ill [s]erver on port 3333' })
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
