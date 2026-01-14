@@ -183,26 +183,6 @@ require('lazy').setup(
         use_blame_commit_file_urls = true,
       },
     },
-    {
-      'kdheepak/lazygit.nvim',
-      lazy = true,
-      cmd = {
-        'LazyGit',
-        'LazyGitConfig',
-        'LazyGitCurrentFile',
-        'LazyGitFilter',
-        'LazyGitFilterCurrentFile',
-      },
-      -- optional for floating window border decoration
-      dependencies = {
-        'nvim-lua/plenary.nvim',
-      },
-      -- setting the keybinding for LazyGit with 'keys' is recommended in
-      -- order to load the plugin when the command is run for the first time
-      keys = {
-        { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
-      },
-    },
     -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
     --
     -- This is often very useful to both group configuration, as well as handle
@@ -405,23 +385,6 @@ require('lazy').setup(
         },
       },
     },
-    -- {
-    --   'kristijanhusak/vim-dadbod-ui',
-    --   dependencies = {
-    --     { 'tpope/vim-dadbod', lazy = true },
-    --     { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
-    --   },
-    --   cmd = {
-    --     'DBUI',
-    --     'DBUIToggle',
-    --     'DBUIAddConnection',
-    --     'DBUIFindBuffer',
-    --   },
-    --   init = function()
-    --     -- Your DBUI configuration
-    --     vim.g.db_ui_use_nerd_fonts = 1
-    --   end,
-    -- },
     {
       -- Main LSP Configuration
       'neovim/nvim-lspconfig',
